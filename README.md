@@ -6,7 +6,8 @@ This loop iterates over lines in `.zsh_named_dirs` and splits at space character
 setopt sh_wordsplit
 
 while read line; do
-    mapping=({$(ps: :)$[line] }) # split line at space
+    mapping=(${(ps: :)${line}}) # split line at space
+    echo "$mapping[1] $mapping[2]"
     hash -d "$mapping[1]"="$mapping[2]"
 done < <(cat ~/.zsh_named_dirs)
 
